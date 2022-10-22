@@ -4,7 +4,12 @@
 
 #### Use cases
 
-- You have a list of IP addresses that belong to you, and you want to check if a domain or a list of domains are hosted on these IP addresses.
+- You have a list of IP addresses that belong to you, and you want to check if a list of domains are hosted on these IP addresses.
+
+## Prerequisites
+
+- Python3
+- Only use Python’s standard libraries, there is no need to install specific libraries
 
 ## Installation
 
