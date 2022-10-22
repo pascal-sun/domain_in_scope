@@ -14,6 +14,7 @@ $ cd domain_in_scope
 ```
 
 ## Usage
+![Demo](https://github.com/pascal-sun/domain_in_scope/blob/main/domain_in_scope_demo.gif)
 
 #### Specifying a domain file and an IP file
 ```console
