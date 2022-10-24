@@ -16,6 +16,19 @@
 ```console
 $ git clone https://github.com/pascal-sun/domain_in_scope.git
 $ cd domain_in_scope
+$ python domain_in_scope.py --help
+usage: domain_in_scope [-h] [--domains [DOMAINS]] --ips [IPS] [--silent] [-t [THREADS]]
+
+Return domains in IP addresses scope
+
+options:
+  -h, --help            show this help message and exit
+  --domains [DOMAINS]   path to domains list
+  --ips [IPS]           path to IP addresses list
+  --silent              be silent and return only domains in scope
+  -t [THREADS], --threads [THREADS]
+                        number of threads (default 25)
+
 ```
 
 ## Usage
