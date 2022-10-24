@@ -27,7 +27,8 @@ class LookupThread(threading.Thread):
         threading.Thread.__init__(self)
 
     def run(self):
-        self.lookup(self.domain, ips_list)
+        with semaphore:
+            self.lookup(self.domain, ips_list)
 
     def lookup(self, domain, ips_list):
         """Try to find the IPs of a domain
@@ -88,12 +89,21 @@ if __name__ == '__main__':
         help="be silent and return only domains in scope",
         action="store_true"
     )
+    parser.add_argument(
+        '-t', '--threads',
+        nargs="?",
+        type=int,
+        help="number of threads (default 25)",
+        default=25
+    )
     args = parser.parse_args()
     ips_file = args.ips
     domains_file = args.domains
     if not args.domains:
         sys.exit("Please provide an input file, or pipe it via stdin")
     IS_SILENT = args.silent
+    MAX_CONCURRENT_THREADS = args.threads
+    semaphore = threading.Semaphore(value=MAX_CONCURRENT_THREADS)
 
     # List IP address from ips_file
     ips_list = set()
