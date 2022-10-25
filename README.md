@@ -1,6 +1,8 @@
 # Domain in scope
 
-`domain_in_scope` is a Python script to check if a domain is in scope from a list of IP addresses or of CIDR.
+`domain_in_scope` is a Python script to check if a domain is in scope from a list of IP addresses.
+
+It supports simple IP address (ex. `8.8.8.8`), CIDR-style addressing (ex. `8.8.8.0/24`) and octet range addressing (ex. `8.8.8.0-255`).
 
 #### Use cases
 
