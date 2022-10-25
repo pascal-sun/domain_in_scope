@@ -20,6 +20,27 @@ def colored(text: str, color: str) -> str:
     """Colorize text with ANSI escape sequences."""
     return f"\033[{COLORS[color]}m{text}\033[0m"
 
+def IPs_from_octet_range(ip: str) -> list[str]:
+    res = []
+    ip_octet = [[0, 0], [0, 0], [0, 0], [0, 0]]
+    octets = ip.split(".")
+
+    for i, octet in enumerate(octets):
+        if "-" in octet:
+            ip_octet[i][0] = int(octet.split("-")[0])
+            ip_octet[i][1] = int(octet.split("-")[1])
+        else:
+            ip_octet[i][0] = int(octet)
+            ip_octet[i][1] = int(octet)
+        
+    for i in range (ip_octet[0][0], ip_octet[0][1] + 1):
+        for j in range (ip_octet[1][0], ip_octet[1][1] + 1):
+            for k in range (ip_octet[2][0], ip_octet[2][1] + 1):
+                for l in range (ip_octet[3][0], ip_octet[3][1] + 1):
+                    res.append(f"{i}.{j}.{k}.{l}")
+    
+    return res
+
 class LookupThread(threading.Thread):
     def __init__(self, domain, result):
         self.domain = domain
@@ -110,7 +131,10 @@ if __name__ == '__main__':
     lines = ips_file.read().splitlines()
     # import pdb; pdb.set_trace()
     for line in lines:
-        ips_list.update([str(ip) for ip in ipaddress.IPv4Network(line)])
+        if "-" in line:
+            ips_list.update(IPs_from_octet_range(line))
+        else:
+            ips_list.update([str(ip) for ip in ipaddress.IPv4Network(line)])
 
     # Check if domains is in IP address list
     domains_lookup_res = {}
